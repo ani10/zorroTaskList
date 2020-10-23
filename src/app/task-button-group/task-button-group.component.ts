@@ -24,6 +24,9 @@ export class TaskButtonGroupComponent implements OnInit {
     this.internalService.taskModalType.next(this.taskModalType);
     this.internalService.taskId.next(id)
   }
+  reassign() {
+    console.log('reassign triggered');
+  }
   deleteTask(id){
     console.log(id)
     this.subscriptions.add(
