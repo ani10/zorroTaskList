@@ -16,8 +16,10 @@ export class UpdateTaskModalComponent implements OnInit {
   @Input() userList: Users[];
   title = 'Edit Task';
   priority = ['low', 'medium', 'high'];
+  postObject = new FormData();
   validateForm!: FormGroup;
   subscriptions: Subscription = new Subscription();
+  taskid: string;
 
   constructor(
     private internalService: InternalService,
@@ -34,22 +36,25 @@ export class UpdateTaskModalComponent implements OnInit {
       priority: [null, []],
       assigned_to: [null, []],
     });
+    this.subscriptions.add(
+      this.internalService.updateTaskItem.subscribe(status => {
+      for (const i in this.validateForm.controls) {
+        this.validateForm.controls[i].setValue(status[i]);
+        this.taskid = status['id']
+      }
+    }));
   }
   ngOnDestroy(){
     this.subscriptions.unsubscribe();
   }
   handleOk(): void {
     if(this.validateForm.valid){
-      let taskId;
-      this.subscriptions.add(this.internalService.taskId.subscribe(res => {
-        taskId = res;
-      }));
       for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
+        this.postObject.append(i, this.validateForm.controls[i].value);
       }
-      let postObject = {...this.validateForm.value, taskid: taskId};
-      this.subscriptions.add(this.globalService.updateTask(postObject).subscribe(res => {
+      this.postObject.append('taskid', this.taskid);
+
+      this.subscriptions.add(this.globalService.updateTask(this.postObject).subscribe(res => {
         console.log(res);
       }))
       this.internalService.editTaskModalVisibility.next(false);

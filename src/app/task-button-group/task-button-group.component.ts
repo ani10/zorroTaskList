@@ -18,10 +18,10 @@ export class TaskButtonGroupComponent implements OnInit {
 
   ngOnInit() {
   }
-  updateTask(id){
-    console.log(id)
+  updateTask(item){
+    console.log(item)
     this.internalService.editTaskModalVisibility.next(!this.taskModalStatus);
-    this.internalService.taskId.next(id)
+    this.internalService.updateTaskItem.next(item)
   }
   deleteTask(id){
     let postObject = new FormData();

@@ -1,20 +1,20 @@
 
-export interface TaskPostObject {
+export interface TaskObject {
   message: string;
   due_date?: string;
   priority?: 1 | 2 | 3;
   assigned_to?: number;
 }
-export interface TaskUpdateObject extends TaskPostObject {
+export interface TaskUpdateObject extends TaskObject {
   taskId: number;
 }
-export interface TaskGetObject extends TaskPostObject {
+export interface TaskGetObject extends TaskObject {
   assigned_name: string,
   created_on: string,
   id: string,
 }
 
-export interface DeleteTaskPostObject {
+export interface DeleteTaskObject {
   taskId: number;
 }
 
