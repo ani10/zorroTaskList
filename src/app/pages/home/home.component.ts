@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/global.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { InternalService } from 'src/app/internal.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,8 +17,10 @@ export class HomeComponent implements OnInit {
   high = [];
   medium = [];
   low = [];
+  general = [];
   ngOnInit() {
-    this.initializeTasksList()
+    this.initializeTasksList();
+    console.log(this.tasksList)
   }
   initializeTasksList() {
     this.subscriptions.add(
@@ -34,6 +35,9 @@ export class HomeComponent implements OnInit {
           }
           if(item.priority === '3') {
             this.high.push(item);
+          }
+          if(item.priority != '1' || item.priority != '2' || item.priority != '3')  {
+            this.general.push(item)
           }
         });
       }));

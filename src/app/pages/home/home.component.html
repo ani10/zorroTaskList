@@ -1,6 +1,35 @@
 <h1> Today's TaskList </h1>
-
-<div nz-row>
+<div nz-row class="general-table">
+  <div nz-col>
+    <nz-table [nzData]="general" [nzFrontPagination]="false" [nzShowPagination]="false">
+      <thead>
+        <tr>
+          <th>General Priority</th>
+        </tr>
+      </thead>
+      <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+        <tr
+        cdkDropList
+        #generalList="cdkDropList"
+        [cdkDropListData]="general"
+        [cdkDropListConnectedTo]="[highList, mediumList, lowList]"
+        class="zorroList"
+        (cdkDropListDropped)="drop($event)">
+        <div class="zorroBox" *ngIf="general.length === 0">
+          <nz-skeleton [nzActive]="true"></nz-skeleton>
+        </div>
+        <div class="zorroBox" *ngFor="let item of general" cdkDrag>
+          {{item['message']}}
+          <div>
+            <app-task-button-group [item]='item'></app-task-button-group>
+          </div>
+        </div>
+      </tr>
+    </tbody>
+    </nz-table>
+  </div>
+</div>
+<div nz-row class="priority-table">
   <div nz-col nzSpan="8">
     <nz-table [nzData]="high" [nzFrontPagination]="false" [nzShowPagination]="false">
       <thead>
