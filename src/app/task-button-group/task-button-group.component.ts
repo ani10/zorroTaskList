@@ -23,11 +23,10 @@ export class TaskButtonGroupComponent implements OnInit {
     this.internalService.editTaskModalVisibility.next(!this.taskModalStatus);
     this.internalService.taskId.next(id)
   }
-  reassign() {
-    console.log('reassign triggered');
-  }
   deleteTask(id){
+    let postObject = new FormData();
+    postObject.append('taskid', id)
     this.subscriptions.add(
-    this.globalService.deleteTask(id).subscribe(res => {console.log(res)}))
+    this.globalService.deleteTask(postObject).subscribe(res => {console.log(res)}))
   }
 }
