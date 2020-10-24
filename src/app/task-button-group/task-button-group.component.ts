@@ -23,9 +23,9 @@ export class TaskButtonGroupComponent implements OnInit {
     this.internalService.editTaskModalVisibility.next(!this.taskModalStatus);
     this.internalService.updateTaskItem.next(item)
   }
-  deleteTask(id){
+  deleteTask(item){
     let postObject = new FormData();
-    postObject.append('taskid', id)
+    postObject.append('taskid', item.id)
     this.subscriptions.add(
     this.globalService.deleteTask(postObject).subscribe(res => {console.log(res)}))
   }
