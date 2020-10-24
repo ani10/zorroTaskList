@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { GlobalService } from './global.service';
-import { InternalService } from './internal.service';
 import { Subscription } from 'rxjs';
 
 @Component({

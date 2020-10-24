@@ -15,7 +15,6 @@ export class TaskModalButtonComponent implements OnInit {
   ngOnInit() {
   }
   createTaskDialogToggle() {
-    this.internalService.taskModalVisibility.next(!this.taskModalStatus);
-    this.internalService.taskModalType.next(this.taskModalType);
+    this.internalService.createTaskModalVisibility.next(!this.taskModalStatus);
   }
 }

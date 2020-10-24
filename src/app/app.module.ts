@@ -14,7 +14,8 @@ import { CreateTaskModalComponent } from './create-task-modal/create-task-modal.
 import { HomeComponent } from './pages/home/home.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskModalButtonComponent } from './task-modal-button/task-modal-button.component';
-import { TaskButtonGroupComponent } from './task-button-group/task-button-group.component'
+import { TaskButtonGroupComponent } from './task-button-group/task-button-group.component';
+import { UpdateTaskModalComponent } from './update-task-modal/update-task-modal.component'
 
 registerLocaleData(en);
 
@@ -25,6 +26,7 @@ registerLocaleData(en);
     HomeComponent,
     TaskModalButtonComponent,
     TaskButtonGroupComponent,
+    UpdateTaskModalComponent,
   ],
   imports: [
     BrowserModule,

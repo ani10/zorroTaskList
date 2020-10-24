@@ -1,20 +1,20 @@
-import { Component, Input, HostListener, OnInit, OnDestroy } from '@angular/core';
-import { InternalService } from '../internal.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { GlobalService } from '../global.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { Users } from '../data.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { InternalService } from '../internal.service';
+import { GlobalService } from '../global.service';
 
 @Component({
-  selector: 'app-create-task-modal',
-  templateUrl: './create-task-modal.component.html',
-  styleUrls: ['./create-task-modal.component.scss']
+  selector: 'app-update-task-modal',
+  templateUrl: './update-task-modal.component.html',
+  styleUrls: ['./update-task-modal.component.scss']
 })
-export class CreateTaskModalComponent implements OnInit, OnDestroy {
+export class UpdateTaskModalComponent implements OnInit {
 
   isVisible: boolean;
   @Input() userList: Users[];
-  title = 'Create Task';
+  title = 'Edit Task';
   priority = ['low', 'medium', 'high'];
   validateForm!: FormGroup;
   subscriptions: Subscription = new Subscription();
@@ -25,7 +25,7 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
     private fb: FormBuilder) {}
   ngOnInit() {
     this.subscriptions.add(
-      this.internalService.createTaskModalVisibility.subscribe(status => {
+      this.internalService.editTaskModalVisibility.subscribe(status => {
       this.isVisible = status;
     }));
     this.validateForm = this.fb.group({
@@ -40,19 +40,24 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
   }
   handleOk(): void {
     if(this.validateForm.valid){
-      let postObject = new FormData();
+      let taskId;
+      this.subscriptions.add(this.internalService.taskId.subscribe(res => {
+        taskId = res;
+      }));
       for (const i in this.validateForm.controls) {
         this.validateForm.controls[i].markAsDirty();
         this.validateForm.controls[i].updateValueAndValidity();
-        postObject.append(i, this.validateForm.controls[i].value)
       }
-      this.subscriptions.add(this.globalService.createTask(postObject).subscribe(res => {
+      let postObject = {...this.validateForm.value, taskid: taskId};
+      this.subscriptions.add(this.globalService.updateTask(postObject).subscribe(res => {
         console.log(res);
       }))
-      this.subscriptions.add(this.internalService.createTaskModalVisibility.next(false));
+      this.internalService.editTaskModalVisibility.next(false);
     }
   }
+
   handleCancel() {
-    this.internalService.createTaskModalVisibility.next(false);
+    this.internalService.editTaskModalVisibility.next(false);
   }
+
 }

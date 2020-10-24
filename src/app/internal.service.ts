@@ -6,8 +6,9 @@ import { Subject } from 'rxjs';
 })
 export class InternalService {
 
-  taskModalVisibility = new Subject<boolean>();
-  taskModalType = new Subject<string>();
+  createTaskModalVisibility = new Subject<boolean>();
+  editTaskModalVisibility = new Subject<boolean>();
+
   taskId = new Subject<number>();
   constructor() { }
 }
