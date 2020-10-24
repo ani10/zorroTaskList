@@ -1,6 +1,12 @@
 [nz-button] {
   position: fixed;
   right: 5rem;
-  bottom: 5rem;
+  top: 6.5rem;
   z-index: 999;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #009688;
+  border: none;
+  height: 50px;
+  width: 50px;
+  font-size: 22px;
 }
