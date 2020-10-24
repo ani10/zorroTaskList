@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/global.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Subscription, Observable } from 'rxjs';
+import { InternalService } from 'src/app/internal.service';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,10 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
+  actionItem: any;
 
-  constructor(private globalService: GlobalService) { }
+  constructor(private globalService: GlobalService,
+    private internalService: InternalService) { }
 
   tasksList = [];
   high = [];
@@ -19,6 +22,25 @@ export class HomeComponent implements OnInit {
   low = [];
   ngOnInit() {
     this.initializeTasksList();
+    this.internalService.deleteTaskItem.subscribe(res=>{
+      console.log(res);
+      this.actionItem = res;
+      this.deleteLocally(this.actionItem);
+    })
+  }
+  deleteLocally(item){
+    if(this.high.includes(item)){
+      let index = this.high.indexOf(item);
+      this.high.splice(index, 1);
+    }
+    if(this.medium.includes(item)){
+      let index = this.medium.indexOf(item);
+      this.medium.splice(index, 1);
+    }
+    if(this.low.includes(item)){
+      let index = this.low.indexOf(item);
+      this.low.splice(index, 1);
+    }
   }
   initializeTasksList() {
     this.subscriptions.add(

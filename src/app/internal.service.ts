@@ -10,5 +10,6 @@ export class InternalService {
   editTaskModalVisibility = new Subject<boolean>();
 
   updateTaskItem = new Subject<any>();
+  deleteTaskItem = new Subject<any>();
   constructor() { }
 }
