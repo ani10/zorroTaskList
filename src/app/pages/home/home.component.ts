@@ -23,10 +23,25 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.initializeTasksList();
     this.internalService.deleteTaskItem.subscribe(res=>{
-      console.log(res);
       this.actionItem = res;
       this.deleteLocally(this.actionItem);
     })
+    this.internalService.createTaskItem.subscribe(res=>{
+      this.actionItem = res;
+      this.createLocally(this.actionItem)
+    })
+  }
+  createLocally(item){
+    if(item['priority'] === "3"){
+      this.high.push(item);
+    }
+    if(item['priority'] === "2"){
+      this.medium.push(item);
+    }
+    if(item['priority'] === "1"){
+      this.low.push(item);
+    }
+
   }
   deleteLocally(item){
     if(this.high.includes(item)){

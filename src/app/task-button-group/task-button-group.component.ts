@@ -29,7 +29,6 @@ export class TaskButtonGroupComponent implements OnInit {
     this.subscriptions.add(
     this.globalService.deleteTask(postObject).subscribe(res => {
       if(res['status'] === 'success') {
-        console.log(res)
         this.internalService.deleteTaskItem.next(item);
       }
     }));

@@ -47,7 +47,9 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
         postObject.append(i, this.validateForm.controls[i].value)
       }
       this.subscriptions.add(this.globalService.createTask(postObject).subscribe(res => {
-        console.log(res);
+        if(res['status'] == 'success') {
+          this.internalService.createTaskItem.next(this.validateForm.value)
+        }
       }))
       this.subscriptions.add(this.internalService.createTaskModalVisibility.next(false));
     }

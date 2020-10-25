@@ -4,15 +4,14 @@ export interface TaskObject {
   due_date?: string;
   priority?: 1 | 2 | 3;
   assigned_to?: number;
+  assigned_name?: string,
+  created_on?: string,
+  id?: string,
 }
 export interface TaskUpdateObject extends TaskObject {
   taskId: number;
 }
-export interface TaskGetObject extends TaskObject {
-  assigned_name: string,
-  created_on: string,
-  id: string,
-}
+
 
 export interface DeleteTaskObject {
   taskId: number;
