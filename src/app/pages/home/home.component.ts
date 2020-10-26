@@ -50,32 +50,60 @@ export class HomeComponent implements OnInit {
       this.low.push(item);
     }
   }
-  updateLocally(previousItem, item){
-    if(this.high.includes(previousItem)){
-      let index = this.high.indexOf(previousItem);
-      this.high[index] = item;
-    }
-    if(this.medium.includes(previousItem)){
-      let index = this.medium.indexOf(previousItem);
-      this.medium[index] = item;
-    }
-    if(this.low.includes(previousItem)){
-      let index = this.low.indexOf(previousItem);
-      this.low[index] = item;
+  updateLocally(previousItem, item) {
+    switch(item['priority']) {
+      case "3":
+        console.log(item['priority']);
+        if(this.high.includes(previousItem)){
+          let index = this.high.indexOf(previousItem);
+          this.high[index] = item;
+        } else {
+          this.deleteLocally(previousItem);
+          this.high.push(item);;
+        }
+        break;
+      case "2":
+        console.log(item['priority']);
+        if(this.medium.includes(previousItem)){
+          let index = this.medium.indexOf(previousItem);
+          this.medium[index] = item;
+        } else {
+          this.deleteLocally(previousItem);
+          this.medium.push(item);;
+        }
+        break;
+      case '1':
+        console.log(item['priority']);
+        if(this.low.includes(previousItem)){
+          let index = this.low.indexOf(previousItem);
+          this.low[index] = item;
+        } else {
+          this.deleteLocally(previousItem);
+          this.low.push(item);;
+        }
+        break;
     }
   }
   deleteLocally(item){
-    if(this.high.includes(item)){
-      let index = this.high.indexOf(item);
-      this.high.splice(index, 1);
-    }
-    if(this.medium.includes(item)){
-      let index = this.medium.indexOf(item);
-      this.medium.splice(index, 1);
-    }
-    if(this.low.includes(item)){
-      let index = this.low.indexOf(item);
-      this.low.splice(index, 1);
+    switch(item['priority']){
+      case '3':
+        if(this.high.includes(item)){
+          let index = this.high.indexOf(item);
+          this.high.splice(index, 1);
+        }
+        break;
+      case '2':
+        if(this.medium.includes(item)) {
+          let index = this.medium.indexOf(item);
+          this.medium.splice(index, 1);
+        }
+        break;
+        case '1':
+        if(this.low.includes(item)){
+          let index = this.low.indexOf(item);
+          this.low.splice(index, 1);
+        }
+        break;
     }
   }
   initializeTasksList() {
