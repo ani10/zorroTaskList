@@ -25,6 +25,7 @@
   cursor: move;
   background: white;
   font-size: 14px;
+  height: 94px;
 }
 
 .cdk-drag-preview {
@@ -71,7 +72,6 @@
 
 @media only screen and (max-width: 540px){
   .button-group {
-    //min-width: 45%;
     display: flex;
     flex-direction: row-reverse;
   }
