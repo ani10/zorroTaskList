@@ -26,6 +26,9 @@
               <div class="dueDate" *ngIf="item['due_date']">
                 Due-date: {{item['due_date'] | date}}
               </div>
+              <div class="dueDate" *ngIf="item['assigned_to']">
+                Assigned To: {{userList[item['assigned_to']-1]['name']}}
+              </div>
             </div>
             <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
@@ -61,6 +64,9 @@
               <div class="dueDate" *ngIf="item['due_date']">
                 Due-date: {{item['due_date'] | date}}
               </div>
+              <div class="dueDate" *ngIf="item['assigned_to']">
+                Assigned To: {{userList[item['assigned_to']-1]['name']}}
+              </div>
             </div>
             <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
@@ -95,6 +101,9 @@
               </div>
               <div class="dueDate" *ngIf="item['due_date']">
                 Due-date: {{item['due_date'] | date}}
+              </div>
+              <div class="dueDate" *ngIf="item['assigned_to']">
+                Assigned To: {{userList[item['assigned_to']-1]['name']}}
               </div>
             </div>
             <div class="button-group">
