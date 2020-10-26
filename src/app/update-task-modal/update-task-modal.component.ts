@@ -16,7 +16,6 @@ export class UpdateTaskModalComponent implements OnInit {
   @Input() userList: Users[];
   title = 'Edit Task';
   priority = ['low', 'medium', 'high'];
-  postObject = new FormData();
   validateForm!: FormGroup;
   subscriptions: Subscription = new Subscription();
   taskid: string;
@@ -33,11 +32,11 @@ export class UpdateTaskModalComponent implements OnInit {
     this.validateForm = this.fb.group({
       message: [null, [Validators.required]],
       due_date: [null, []],
-      priority: [null, []],
+      priority: [1, []],
       assigned_to: [null, []],
     });
     this.subscriptions.add(
-      this.internalService.updateTaskItem.subscribe(status => {
+      this.internalService.updateTaskItemPrevious.subscribe(status => {
       for (const i in this.validateForm.controls) {
         this.validateForm.controls[i].setValue(status[i]);
         this.taskid = status['id']
@@ -49,13 +48,17 @@ export class UpdateTaskModalComponent implements OnInit {
   }
   handleOk(): void {
     if(this.validateForm.valid){
-      for (const i in this.validateForm.controls) {
-        this.postObject.append(i, this.validateForm.controls[i].value);
-      }
-      this.postObject.append('taskid', this.taskid);
+      let postObject = new FormData();
 
-      this.subscriptions.add(this.globalService.updateTask(this.postObject).subscribe(res => {
-        console.log(res);
+      for (const i in this.validateForm.controls) {
+        postObject.append(i, this.validateForm.controls[i].value);
+      }
+      postObject.append('taskid', this.taskid);
+
+      this.subscriptions.add(this.globalService.updateTask(postObject).subscribe(res => {
+        if(res['status'] == 'success') {
+          this.internalService.updateTaskItem.next(this.validateForm.value);
+        }
       }))
       this.internalService.editTaskModalVisibility.next(false);
     }

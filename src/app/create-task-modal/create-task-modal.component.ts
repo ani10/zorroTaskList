@@ -31,7 +31,7 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
     this.validateForm = this.fb.group({
       message: [null, [Validators.required]],
       due_date: [null, []],
-      priority: [null, []],
+      priority: [1, []],
       assigned_to: [null, []],
     });
   }

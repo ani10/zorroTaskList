@@ -15,7 +15,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="6" nzFor="priority">Priority</nz-form-label>
       <nz-form-control [nzSpan]="14">
-        <nz-select nz-input  formControlName="priority" id="priority">
+        <nz-select ngModel="{{1}}" nz-input formControlName="priority" id="priority">
           <nz-option *ngFor="let lvl of priority; let i = index" nzValue="{{i+1}}" nzLabel="{{lvl}}"></nz-option>
         </nz-select>
       </nz-form-control>

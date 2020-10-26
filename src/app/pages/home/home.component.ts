@@ -11,6 +11,7 @@ import { InternalService } from 'src/app/internal.service';
 })
 export class HomeComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
+  previousItem: any;
   actionItem: any;
 
   constructor(private globalService: GlobalService,
@@ -30,6 +31,13 @@ export class HomeComponent implements OnInit {
       this.actionItem = res;
       this.createLocally(this.actionItem)
     })
+    this.internalService.updateTaskItemPrevious.subscribe(res=>{
+      this.previousItem=res;
+    })
+    this.internalService.updateTaskItem.subscribe(res=>{
+      this.actionItem = res;
+      this.updateLocally(this.previousItem, this.actionItem)
+    })
   }
   createLocally(item){
     if(item['priority'] === "3"){
@@ -40,6 +48,21 @@ export class HomeComponent implements OnInit {
     }
     if(item['priority'] === "1"){
       this.low.push(item);
+    }
+
+  }
+  updateLocally(previousItem, item){
+    if(this.high.includes(previousItem)){
+      let index = this.high.indexOf(previousItem);
+      this.high[index] = item;
+    }
+    if(this.medium.includes(previousItem)){
+      let index = this.medium.indexOf(previousItem);
+      this.medium[index] = item;
+    }
+    if(this.low.includes(previousItem)){
+      let index = this.low.indexOf(previousItem);
+      this.low[index] = item;
     }
 
   }
