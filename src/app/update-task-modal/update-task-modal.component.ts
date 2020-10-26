@@ -49,12 +49,10 @@ export class UpdateTaskModalComponent implements OnInit {
   handleOk(): void {
     if(this.validateForm.valid){
       let postObject = new FormData();
-
       for (const i in this.validateForm.controls) {
         postObject.append(i, this.validateForm.controls[i].value);
       }
       postObject.append('taskid', this.taskid);
-
       this.subscriptions.add(this.globalService.updateTask(postObject).subscribe(res => {
         if(res['status'] == 'success') {
           this.internalService.updateTaskItem.next(this.validateForm.value);
@@ -63,7 +61,6 @@ export class UpdateTaskModalComponent implements OnInit {
       this.internalService.editTaskModalVisibility.next(false);
     }
   }
-
   handleCancel() {
     this.internalService.editTaskModalVisibility.next(false);
   }

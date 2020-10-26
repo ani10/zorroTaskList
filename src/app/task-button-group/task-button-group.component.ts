@@ -18,7 +18,7 @@ export class TaskButtonGroupComponent implements OnInit {
 
   ngOnInit() {
   }
-  updateTask(item){
+  updateTaskDialogToggle(item){
     this.internalService.editTaskModalVisibility.next(!this.taskModalStatus);
     this.internalService.updateTaskItemPrevious.next(item)
   }
