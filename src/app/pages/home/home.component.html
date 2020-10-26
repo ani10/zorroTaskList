@@ -20,7 +20,7 @@
           </div>
           <div class="zorroBox" *ngFor="let item of high" cdkDrag>
             {{item['message']}}
-            <div>
+            <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
             </div>
           </div>
@@ -48,7 +48,7 @@
           </div>
           <div class="zorroBox" *ngFor="let item of medium" cdkDrag>
             {{item['message']}}
-            <div>
+            <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
             </div>
           </div>
@@ -76,7 +76,7 @@
             </div>
           <div class="zorroBox" *ngFor="let item of low" cdkDrag>
             {{item['message']}}
-            <div>
+            <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
             </div>
           </div>
