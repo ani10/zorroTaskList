@@ -56,5 +56,6 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
   }
   handleCancel() {
     this.internalService.createTaskModalVisibility.next(false);
+    this.validateForm.reset();
   }
 }
