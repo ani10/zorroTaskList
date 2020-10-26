@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
   previousItem: any;
   actionItem: any;
+  appUsersList = [];
 
   constructor(private globalService: GlobalService,
     private internalService: InternalService) { }
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit {
   low = [];
   ngOnInit() {
     this.initializeTasksList();
+    this.initializeUsersList();
+    console.log(this.appUsersList)
     this.internalService.deleteTaskItem.subscribe(res=>{
       this.actionItem = res;
       this.deleteLocally(this.actionItem);
@@ -38,6 +41,13 @@ export class HomeComponent implements OnInit {
       this.actionItem = res;
       this.updateLocally(this.previousItem, this.actionItem)
     })
+  }
+  initializeUsersList() {
+    this.subscriptions.add(
+      this.globalService.getUserList().subscribe((res)=>{
+        console.log(res)
+        this.appUsersList = res['users'];
+      }));
   }
   createLocally(item){
     if(item['priority'] === "3"){

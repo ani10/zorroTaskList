@@ -19,7 +19,14 @@
             <nz-skeleton [nzActive]="true"></nz-skeleton>
           </div>
           <div class="zorroBox" *ngFor="let item of high" cdkDrag>
-            {{item['message']}}
+            <div>
+              <div>
+                {{item['message']}}
+              </div>
+              <div class="dueDate" *ngIf="item['due_date']">
+                Due-date: {{item['due_date'] | date}}
+              </div>
+            </div>
             <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
             </div>
@@ -47,7 +54,14 @@
             <nz-skeleton [nzActive]="true"></nz-skeleton>
           </div>
           <div class="zorroBox" *ngFor="let item of medium" cdkDrag>
-            {{item['message']}}
+            <div>
+              <div>
+                {{item['message']}}
+              </div>
+              <div class="dueDate" *ngIf="item['due_date']">
+                Due-date: {{item['due_date'] | date}}
+              </div>
+            </div>
             <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
             </div>
@@ -75,7 +89,14 @@
               <nz-skeleton [nzActive]="true"></nz-skeleton>
             </div>
           <div class="zorroBox" *ngFor="let item of low" cdkDrag>
-            {{item['message']}}
+            <div>
+              <div>
+                {{item['message']}}
+              </div>
+              <div class="dueDate" *ngIf="item['due_date']">
+                Due-date: {{item['due_date'] | date}}
+              </div>
+            </div>
             <div class="button-group">
               <app-task-button-group [item]='item'></app-task-button-group>
             </div>
