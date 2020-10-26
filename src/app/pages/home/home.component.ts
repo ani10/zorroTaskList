@@ -49,7 +49,6 @@ export class HomeComponent implements OnInit {
     if(item['priority'] === "1"){
       this.low.push(item);
     }
-
   }
   updateLocally(previousItem, item){
     if(this.high.includes(previousItem)){
@@ -64,7 +63,6 @@ export class HomeComponent implements OnInit {
       let index = this.low.indexOf(previousItem);
       this.low[index] = item;
     }
-
   }
   deleteLocally(item){
     if(this.high.includes(item)){
