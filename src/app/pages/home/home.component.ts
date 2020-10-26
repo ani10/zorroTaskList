@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit {
   updateLocally(previousItem, item) {
     switch(item['priority']) {
       case "3":
-        console.log(item['priority']);
         if(this.high.includes(previousItem)){
           let index = this.high.indexOf(previousItem);
           this.high[index] = item;
@@ -63,7 +62,6 @@ export class HomeComponent implements OnInit {
         }
         break;
       case "2":
-        console.log(item['priority']);
         if(this.medium.includes(previousItem)){
           let index = this.medium.indexOf(previousItem);
           this.medium[index] = item;
@@ -73,7 +71,6 @@ export class HomeComponent implements OnInit {
         }
         break;
       case '1':
-        console.log(item['priority']);
         if(this.low.includes(previousItem)){
           let index = this.low.indexOf(previousItem);
           this.low[index] = item;
@@ -130,16 +127,26 @@ export class HomeComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(event.container.data, event.previousIndex, event.currentIndex)
     } else {
+      let postObject = new FormData();
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
-      console.log(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex)
+        postObject.append('message', event.container.data[event.currentIndex]['message'])
+        switch(event.container.id) {
+          case 'cdk-drop-list-1':
+            postObject.append('priority', '3');
+            break;
+          case 'cdk-drop-list-3':
+            postObject.append('priority', '2');
+            break;
+          case 'cdk-drop-list-5':
+            postObject.append('priority', '1');
+            break;
+        }
+        postObject.append('taskid', event.container.data[event.currentIndex]['id'])
+        this.globalService.updateTask(postObject).subscribe(res => console.log(res))
     }
   }
 }
